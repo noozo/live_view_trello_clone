@@ -3,7 +3,7 @@ A Phoenix LiveView Trello "clone". It contains a small subset of Trello, mostly 
 
 Mandatory screenshot:
 
-![screenshot.png](Screenshot)
+![Screenshot](screenshot.png)
 
 Notes:
 - It's not a full Phoenix app, but it should be easy to adapt to a new one. 
