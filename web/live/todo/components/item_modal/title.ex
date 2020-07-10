@@ -40,7 +40,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.ItemModal.Title do
 
   @impl true
   def handle_event("update_title", %{"title" => new_title} = _event, socket) do
-    {:ok, list} = Todo.update_item(socket.assigns.item, %{title: new_title})
+    {:ok, _list} = Todo.update_item(socket.assigns.item, %{title: new_title})
     {:noreply, socket}
   end
 end

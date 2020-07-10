@@ -45,6 +45,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.List do
   # Converts list_id in assigns into list, by smartly identifying all
   # components in the same page and running a single query to get all lists
   # instead of N+1'ing
+  @impl true
   def preload(list_of_assigns) do
     list_of_ids = Enum.map(list_of_assigns, &(&1.id))
 

@@ -51,18 +51,6 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
   end
 
   @impl true
-  def handle_info(:load_board, socket) do
-    board = Todo.get_board!(socket.assigns.board.id)
-
-    {:noreply,
-     assign(socket,
-       board: board,
-       lists: board.lists,
-       columns: column_size(board)
-     )}
-  end
-
-  @impl true
   def handle_event("toggle_list", %{"list_id" => id} = _event, socket) do
     {:ok, _list} = Todo.toggle_list(id)
     {:noreply, socket}
@@ -105,11 +93,34 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
     {:noreply, assign(socket, selected_item: Todo.get_item!(id))}
   end
 
-  defp column_size(board) do
-    length(board.lists) + 1
+  @impl true
+  def handle_info(:load_board, socket) do
+    board = Todo.get_board!(socket.assigns.board.id)
+
+    {:noreply,
+     assign(socket,
+       board: board,
+       lists: board.lists,
+       columns: column_size(board)
+     )}
   end
 
   ###################### PubSub Events ######################
+
+  @impl true
+  def handle_info({:lists_swapped, _list, _other_list}, socket) do
+    # TODO: Maybe patch lists, instead of reloading everything
+    send(self(), :load_board)
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({:item_moved, item, previous_list_id}, socket) do
+    # Send update to the appropriate lists
+    send_update(Components.List, id: item.list_id)
+    send_update(Components.List, id: previous_list_id)
+    {:noreply, socket}
+  end
 
   @impl true
   def handle_info({:item_created, item}, socket) do
@@ -131,14 +142,6 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
     # Send update to the appropriate list
     send_update(Components.List, id: item.list_id)
     {:noreply, assign(socket, selected_item: nil)}
-  end
-
-  @impl true
-  def handle_info({:item_moved, item, previous_list_id}, socket) do
-    # Send update to the appropriate lists
-    send_update(Components.List, id: item.list_id)
-    send_update(Components.List, id: previous_list_id)
-    {:noreply, socket}
   end
 
   @impl true
@@ -177,10 +180,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
     {:noreply, socket}
   end
 
-  @impl true
-  def handle_info({:lists_swapped, _list, _other_list}, socket) do
-    # TODO: Maybe patch lists, instead of reloading everything
-    send(self(), :load_board)
-    {:noreply, socket}
+  defp column_size(board) do
+    length(board.lists) + 1
   end
 end
