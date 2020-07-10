@@ -1,5 +1,12 @@
 # live_view_trello_clone
-A Phoenix LiveView Trello "clone". It contains a small subset of Trello, mostly for training and learning purposes. MIT Licence.
+A Phoenix LiveView Trello "clone". It contains a small subset of Trello, mostly for training and learning purposes. 
+
+Currently supports:
+- Item drag and drop
+- List drag and drop (ordering)
+- Adding boards, lists, items
+- Labelling items with coloured tags
+- Realtime updates via PubSub
 
 Mandatory screenshot:
 
@@ -20,3 +27,5 @@ Example routing:
       live "/", Board.IndexView
     end
 ```
+
+MIT Licence.
