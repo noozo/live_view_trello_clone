@@ -18,7 +18,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.IndexView do
     <% else %>
       <%= live_patch "Create Board", to: Routes.live_path(@socket, CreateView) %>
       <div class="boards">
-        <table>
+        <table class="table">
           <thead>
             <th>Title</th>
             <th>Rename</th>
