@@ -13,7 +13,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.Item do
          phx-click="item_clicked">
       <%= @item.title %>
       <%= if @item.label do %>
-        <div class="d-inline label" style="background-color: <%= @item.label.color_hex %>">
+        <div class="tag d-inline label" style="background-color: <%= @item.label.color_hex %>">
           <%= @item.label.title %>
         </div>
       <% end %>

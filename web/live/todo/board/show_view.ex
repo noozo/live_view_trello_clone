@@ -10,7 +10,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
   @impl true
   def render(assigns) do
     ~L"""
-    <%= @board.title %>
+    <div class="title is-4">Board: <%= @board.title %></div>
     <div class="board">
       <div class="lists">
         <div id="lists">

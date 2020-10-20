@@ -8,23 +8,21 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.ListCreator do
     ~L"""
     <div id="<%= @id %>" class="new-list list">
       <%= if @creating do %>
-        <div class="row">
-          <div class="col">
-            <form phx-submit="create_list" phx-target="<%= @myself %>">
-              <input type="hidden" name="board_id" value="<%= @board.id %>" />
-              <div class='control-group'>
-                <input type="text" name="new_list" placeholder="Enter list title..." size="5" phx-hook="Focus" data-component="<%= @id %>" />
-              </div>
-              <div class='control-group'>
-                <button class="btn btn-success btn-sm"><i class="material-icons">check</i></button>
-              </div>
-            </form>
+        <form phx-submit="create_list" phx-target="<%= @myself %>">
+          <input type="hidden" name="board_id" value="<%= @board.id %>" />
+          <div class="field is-grouped">
+            <div class="control">
+              <input class="input is-small" type="text" name="new_list" placeholder="Enter list title..." size="15" phx-hook="Focus" data-component="<%= @id %>" />
+            </div>
+            <div class="control">
+              <button class="button is-small is-success"><i class="material-icons">check</i></button>
+            </div>
           </div>
-          <div class="col-md-auto">
-            <form phx-submit="cancel" phx-target="<%= @myself %>">
-              <button class="btn-danger btn-sm cancel"><i class="material-icons">cancel</i></button>
-            </form>
-          </div>
+        </form>
+        <div class="col-md-auto">
+          <form phx-submit="cancel" phx-target="<%= @myself %>">
+            <button class="button is-small is-danger"><i class="material-icons">cancel</i></button>
+          </form>
         </div>
       <% else %>
         <form phx-submit="input_title" phx-target="<%= @myself %>">

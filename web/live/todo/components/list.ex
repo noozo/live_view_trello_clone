@@ -17,16 +17,20 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.List do
         <div class="title">
           <%= if @editing do %>
             <form phx-target="<%= @myself %>" phx-submit="update_title">
-              <input type="text" name="title" phx-hook="Focus" data-component="<%= @id %>" value="<%= @list.title %>"></input>
+              <input class="input is-small" type="text" name="title" phx-hook="Focus" data-component="<%= @id %>" value="<%= @list.title %>"/>
             </form>
           <% else %>
-            <span class="badge badge-secondary" phx-click="toggle_list" phx-value-list_id="<%= @list.id %>" phx-value-board_id="<%= @list.board_id %>">
-              <%= if @list.open do %>-<% else %>+<% end %>
-            </span>
-            &nbsp;
-            <span phx-click="start_editing" phx-target="<%= @myself %>"><%= @list.title %></span>
-            &nbsp;
-            <span class="badge badge-info"><%= length(@list.items) %></span>
+            <div class="tags has-addons">
+              <span class="tag is-success" phx-click="toggle_list" phx-value-list_id="<%= @list.id %>" phx-value-board_id="<%= @list.board_id %>">
+                <%= if @list.open do %>-<% else %>+<% end %>
+              </span>
+              <span class="tag" phx-click="start_editing" phx-target="<%= @myself %>">
+                <%= @list.title %>
+              </span>
+              <span class="tag is-info" phx-click="start_editing" phx-target="<%= @myself %>">
+              <%= length(@list.items) %>
+              </span>
+            </div>
           <% end %>
         </div>
         <div class="items">
@@ -78,6 +82,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.List do
 
   @impl true
   def handle_event("cancel", _event, socket) do
+    IO.inspect("sdf")
     {:noreply, assign(socket, list: socket.assigns.list, editing: false)}
   end
 

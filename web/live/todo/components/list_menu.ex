@@ -4,7 +4,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.ListMenu do
   def render(assigns) do
     ~L"""
     <div id="<%= @id %>" class="dropdown">
-      <button class="badge badge-pill badge-light dropdown-toggle" type="button"
+      <button class="tag dropdown-toggle" type="button"
               id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
         ...

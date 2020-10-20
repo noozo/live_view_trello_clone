@@ -9,35 +9,30 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.ItemModal do
   @impl true
   def render(assigns) do
     ~L"""
-    <div class="modal fade show" id="<%= @id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display:block">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <%= live_component @socket, Apps.TrelloClone.Web.Live.Todo.Components.ItemModal.Title, id: :item_title, item: @item %>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" phx-click="item_clicked" phx-value-draggable_id="">
-              <span aria-hidden="true">&times;</span>
-            </button>
+    <div class="modal is-active" id="<%= @id %>" tabindex="-1" role="dialog" aria-labelledby="<%= @id %>" aria-hidden="true">
+      <div class="modal-background" data-dismiss="modal" phx-click="item_clicked" phx-value-draggable_id=""></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <h3 class="modal-card-title"><%= live_component @socket, Apps.TrelloClone.Web.Live.Todo.Components.ItemModal.Title, id: :item_title, item: @item %></h3>
+          <button class="delete" data-dismiss="modal" phx-click="item_clicked" phx-value-draggable_id=""></button>
+        </header>
+        <section class="modal-card-body">
+          <%= live_component @socket, Apps.TrelloClone.Web.Live.Todo.Components.ItemLabel, id: :label, item: @item %>
+          <div class="item-content">
+            <%= @item.content %>
           </div>
-          <div class="modal-body">
-            <%= live_component @socket, Apps.TrelloClone.Web.Live.Todo.Components.ItemLabel, id: :label, item: @item %>
-            <div class="item-content">
-              <h6><small>Content</small></h6>
-              <%= @item.content %>
-            </div>
-            <hr/>
-            <small>
-              <a href="#" class="alert-link text-danger" data-confirm="Are you sure?"
-                phx-click="delete_item"
-                phx-target="<%= @myself %>">Delete this item</a>.
-            </small>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" phx-click="item_clicked" phx-value-draggable_id="">Close</button>
-          </div>
-        </div>
+          <hr/>
+          <small>
+            <a href="#" class="alert-link text-danger" data-confirm="Are you sure?"
+              phx-click="delete_item"
+              phx-target="<%= @myself %>">Delete this item</a>.
+          </small>
+        </section>
+        <footer class="modal-card-foot">
+          <button type="button" class="modal-close is-large" data-dismiss="modal" phx-click="item_clicked" phx-value-draggable_id="">Close</button>
+        </footer>
       </div>
     </div>
-    <div class="modal-backdrop fade show"></div>
     """
   end
 
