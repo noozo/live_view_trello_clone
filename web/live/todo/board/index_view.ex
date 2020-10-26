@@ -36,7 +36,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.IndexView do
         </table>
       </div>
 
-      <%= Pagination.live_paginate(@boards, nil, true) %>
+      <%= Pagination.live_paginate(@boards) %>
     <% end %>
     """
   end
