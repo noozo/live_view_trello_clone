@@ -8,7 +8,7 @@ defmodule Apps.TrelloClone.Contexts.Todo do
   alias Noozo.Repo
   alias Apps.TrelloClone.Contexts.Todo.{Board, Item, Label, List}
 
-  def list_boards(params) do
+  def list_boards(params \\ %{page: 1, per_page: 10}) do
     Board
     |> order_by(desc: :inserted_at)
     |> Repo.paginate(params)
