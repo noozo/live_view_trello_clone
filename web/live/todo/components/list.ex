@@ -51,7 +51,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.List do
   # instead of N+1'ing
   @impl true
   def preload(list_of_assigns) do
-    list_of_ids = Enum.map(list_of_assigns, &(&1.id))
+    list_of_ids = Enum.map(list_of_assigns, & &1.id)
 
     lists =
       from(

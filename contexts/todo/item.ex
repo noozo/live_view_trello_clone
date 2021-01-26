@@ -10,7 +10,7 @@ defmodule Apps.TrelloClone.Contexts.Todo.Item do
     field :title, :string
     field :content, :string
     belongs_to :list, List
-    belongs_to :label, Label, [foreign_key: :label_id, references: :id, type: :integer]
+    belongs_to :label, Label, foreign_key: :label_id, references: :id, type: :integer
     timestamps()
   end
 

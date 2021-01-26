@@ -25,7 +25,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.Item do
   # components in the same page and running a single query to get all items
   # instead of N+1'ing
   def preload(list_of_assigns) do
-    list_of_ids = Enum.map(list_of_assigns, &(&1.id))
+    list_of_ids = Enum.map(list_of_assigns, & &1.id)
 
     items =
       from(

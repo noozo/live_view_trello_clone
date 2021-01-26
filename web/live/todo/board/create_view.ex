@@ -19,9 +19,10 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.CreateView do
 
   def handle_params(_params, _uri, socket) do
     {:ok, board} = Todo.create_board(%{title: "Untitled"})
+
     {:noreply,
-       socket
-       |> put_flash(:info, "Board started")
-       |> redirect(to: Routes.live_path(socket, EditView, board.id))}
+     socket
+     |> put_flash(:info, "Board started")
+     |> redirect(to: Routes.live_path(socket, EditView, board.id))}
   end
 end
