@@ -11,7 +11,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
   def render(assigns) do
     ~L"""
     <div class="text-xl">Board: <%= @board.title %></div>
-    <div class="board max-w-6xl overflow-x-scroll">
+    <div class="board max-w-7xl overflow-x-scroll">
       <div class="lists flex flex-nowrap">
         <div id="lists" class="flex flex-nowrap">
           <%= for list <- @lists do %>
@@ -42,7 +42,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
        board: board,
        lists: board.lists,
        columns: column_size(board),
-       selected_item: Todo.get_item!("80b68dcf-314e-4175-a6ae-ede9d3760840")
+       selected_item: Todo.get_item!("cc36cc74-9c5b-423a-9c37-d059d8dc4791")
      )}
   end
 
@@ -131,7 +131,6 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
   def handle_info({:item_updated, item}, socket) do
     # Send update to the appropriate list
     send_update(Components.Item, id: item.id, item: item)
-    send_update(Components.ItemModal, id: :item_modal, item: item)
     {:noreply, socket}
   end
 
@@ -144,9 +143,8 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
 
   @impl true
   def handle_info({:item_label_changed, item}, socket) do
-    # Send update to the appropriate item (and modal)
-    # send_update(Components.Item, id: item.id, item: item)
-    # send_update(Components.ItemModal, id: :item_modal, item: item)
+    # Send update to the appropriate item
+    send_update(Components.Item, id: item.id, item: item)
     {:noreply, socket}
   end
 

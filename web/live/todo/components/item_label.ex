@@ -8,11 +8,11 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.ItemLabel do
 
   def render(assigns) do
     ~L"""
-    <div id="<%= @id %>" class="tag">
+    <div id="<%= @id %>" class="flex">
       <h6><small>Label</small></h6>
       <%= for label <- Todo.list_labels() do %>
         <% border = if label.id == @item.label_id, do: "5px solid rgba(0,0,0,.15);", else: "none" %>
-        <div class="d-inline label" style="background-color: <%= label.color_hex %>; border: <%= border %>"
+        <div class="d-inline label cursor-pointer" style="background-color: <%= label.color_hex %>; border: <%= border %>"
              phx-click="select_label" phx-value-label_id="<%= label.id %>" phx-target="<%= @myself %>">
           <%= label.title %>
         </div>
