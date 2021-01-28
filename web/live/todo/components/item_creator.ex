@@ -12,7 +12,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.ItemCreator do
           <input type="hidden" name="list_id" value="<%= @list.id %>" />
           <div class="field is-grouped">
             <div class="control">
-              <input class="input is-small" type="text" name="new_item" placeholder="Enter item title..." size="15" phx-hook="Focus" data-component="<%= @id %>" />
+              <input class="input is-small" type="text" name="new_item" placeholder="Enter item title..." size="15" phx-hook="Focus" data-component="<%= @id %>" id="<%= @id %>" />
             </div>
             <div class="control">
               <button class="button is-small is-success"><i class="material-icons">check</i></button>

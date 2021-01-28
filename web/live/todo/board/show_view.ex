@@ -10,28 +10,24 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
   @impl true
   def render(assigns) do
     ~L"""
-    <div class="title is-4">Board: <%= @board.title %></div>
-    <div class="board">
-      <div class="lists">
-        <div id="lists">
+    <div class="text-xl">Board: <%= @board.title %></div>
+    <div class="board max-w-6xl overflow-x-scroll">
+      <div class="lists flex flex-nowrap">
+        <div id="lists" class="flex flex-nowrap">
           <%= for list <- @lists do %>
             <%= live_component @socket, Components.List, id: list.id %>
           <% end %>
         </div>
         <div class="list_actions">
           <%= live_component @socket, Components.ListCreator, id: :list_creator, board: @board %>
-          <br style="clear: left;" />
         </div>
       </div>
-      <style>
-        .lists {
-          width: <%= @columns * 300 %>px;
-        }
-      </style>
     </div>
 
     <%= if @selected_item do %>
-      <%= live_component @socket, Components.ItemModal, id: :item_modal, item: @selected_item %>
+      <div x-data="{modalOpen: true}" x-title="Modal Background">
+        <%= live_component @socket, Components.ItemModal, id: :item_modal, item: @selected_item %>
+      </div>
     <% end %>
     """
   end
@@ -85,11 +81,13 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
 
   @impl true
   def handle_event("item_clicked", %{"draggable_id" => ""} = _event, socket) do
+    IO.inspect("none")
     {:noreply, assign(socket, selected_item: nil)}
   end
 
   @impl true
   def handle_event("item_clicked", %{"draggable_id" => id} = _event, socket) do
+    IO.inspect(id)
     {:noreply, assign(socket, selected_item: Todo.get_item!(id))}
   end
 
@@ -147,8 +145,8 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
   @impl true
   def handle_info({:item_label_changed, item}, socket) do
     # Send update to the appropriate item (and modal)
-    send_update(Components.Item, id: item.id, item: item)
-    send_update(Components.ItemModal, id: :item_modal, item: item)
+    # send_update(Components.Item, id: item.id, item: item)
+    # send_update(Components.ItemModal, id: :item_modal, item: item)
     {:noreply, socket}
   end
 

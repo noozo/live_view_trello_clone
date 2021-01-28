@@ -10,14 +10,14 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.List do
   def render(assigns) do
     ~L"""
     <div id="<%= @id %>" class="list" phx-hook="Draggable" draggable="true" phx-value-draggable_id="<%= @list.id %>" phx-value-draggable_type="list" phx-value-list_id="<%= @list.id %>">
-      <div phx-hook="DropContainer">
+      <div phx-hook="DropContainer" id="<%= @id %>_drop_container">
         <div class="menu">
           <%= live_component @socket, Apps.TrelloClone.Web.Live.Todo.Components.ListMenu, id: "list_menu_#{@list.id}", list: @list %>
         </div>
         <div class="title">
           <%= if @editing do %>
             <form phx-target="<%= @myself %>" phx-submit="update_title">
-              <input class="input is-small" type="text" name="title" phx-hook="Focus" data-component="<%= @id %>" value="<%= @list.title %>"/>
+              <input class="input is-small" type="text" name="title" phx-hook="Focus" data-component="<%= @id %>" value="<%= @list.title %>" id="<%= @id %>"/>
             </form>
           <% else %>
             <div class="tags has-addons">

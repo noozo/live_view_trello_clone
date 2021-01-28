@@ -12,7 +12,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.ItemModal.Title do
     <div id="<%= @id %>">
       <%= if @editing do %>
         <form phx-target="<%= @myself %>" phx-submit="update_title">
-          <input class="input" type="text" name="title" phx-hook="Focus" data-component="<%= @id %>" value="<%= @item.title %>" />
+          <input class="input" type="text" name="title" phx-hook="Focus" data-component="<%= @id %>" value="<%= @item.title %>" id="<%= @id %>" />
         </form>
       <% else %>
         <h5 class="modal-title" phx-click="start_editing" phx-target="<%= @myself %>">
