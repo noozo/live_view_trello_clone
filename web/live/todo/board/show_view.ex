@@ -10,10 +10,10 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
   @impl true
   def render(assigns) do
     ~L"""
-    <div class="text-xl">Board: <%= @board.title %></div>
-    <div class="board max-w-7xl overflow-x-scroll">
-      <div class="lists flex flex-nowrap">
-        <div id="lists" class="flex flex-nowrap">
+    <div class="text-xl font-bold mb-6">Board: <%= @board.title %></div>
+    <div class="bg-gray-200 max-w-7xl overflow-x-scroll p-5 rounded-lg">
+      <div class="lists flex flex-nowrap gap-6">
+        <div id="lists" class="flex flex-nowrap gap-6">
           <%= for list <- @lists do %>
             <%= live_component @socket, Components.List, id: list.id %>
           <% end %>
@@ -42,7 +42,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.ShowView do
        board: board,
        lists: board.lists,
        columns: column_size(board),
-       selected_item: Todo.get_item!("cc36cc74-9c5b-423a-9c37-d059d8dc4791")
+       selected_item: nil#Todo.get_item!("cc36cc74-9c5b-423a-9c37-d059d8dc4791")
      )}
   end
 

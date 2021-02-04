@@ -9,25 +9,30 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.List do
   @impl true
   def render(assigns) do
     ~L"""
-    <div id="<%= @id %>" class="list" phx-hook="Draggable" draggable="true" phx-value-draggable_id="<%= @list.id %>" phx-value-draggable_type="list" phx-value-list_id="<%= @list.id %>">
+    <div id="<%= @id %>" class="bg-white text-sm min-w-48 border rounded-lg p-4"
+         phx-hook="Draggable" draggable="true"
+         phx-value-draggable_id="<%= @list.id %>"
+         phx-value-draggable_type="list"
+         phx-value-list_id="<%= @list.id %>"
+         style="min-width: 250px;">
       <div phx-hook="DropContainer" id="<%= @id %>_drop_container">
-        <div class="menu">
+        <div class="float-right">
           <%= live_component @socket, Apps.TrelloClone.Web.Live.Todo.Components.ListMenu, id: "list_menu_#{@list.id}", list: @list %>
         </div>
-        <div class="title">
+        <div class="font-bold p-2 break-words">
           <%= if @editing do %>
             <form phx-target="<%= @myself %>" phx-submit="update_title">
               <input class="input is-small" type="text" name="title" phx-hook="Focus" data-component="<%= @id %>" value="<%= @list.title %>" id="<%= @id %>"/>
             </form>
           <% else %>
-            <div class="tags has-addons">
-              <span class="tag is-success" phx-click="toggle_list" phx-value-list_id="<%= @list.id %>" phx-value-board_id="<%= @list.board_id %>">
+            <div class="flex">
+              <span class="tag-xs text-xs inline" phx-click="toggle_list" phx-value-list_id="<%= @list.id %>" phx-value-board_id="<%= @list.board_id %>">
                 <%= if @list.open do %>-<% else %>+<% end %>
               </span>
-              <span class="tag" phx-click="start_editing" phx-target="<%= @myself %>">
+              <span class="tag-xs text-xs inline flex-grow" phx-click="start_editing" phx-target="<%= @myself %>">
                 <%= @list.title %>
               </span>
-              <span class="tag is-info" phx-click="start_editing" phx-target="<%= @myself %>">
+              <span class="tag-xs text-xs inline" phx-click="start_editing" phx-target="<%= @myself %>">
               <%= length(@list.items) %>
               </span>
             </div>
