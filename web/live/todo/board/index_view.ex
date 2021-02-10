@@ -3,7 +3,9 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.IndexView do
   List all the boards
   """
   use Phoenix.LiveView
-  alias Noozo.Pagination
+
+  import Noozo.Pagination
+
   alias Apps.TrelloClone.Contexts.Todo
   alias Apps.TrelloClone.Web.Live.Todo.Board.CreateView
   alias Apps.TrelloClone.Web.Live.Todo.Board.EditView
@@ -36,7 +38,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Board.IndexView do
         </table>
       </div>
 
-      <%= Pagination.live_paginate(@boards) %>
+      <%= live_paginate(assigns, @boards, __MODULE__, @socket) %>
     <% end %>
     """
   end

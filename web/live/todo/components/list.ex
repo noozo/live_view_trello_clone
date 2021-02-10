@@ -9,7 +9,7 @@ defmodule Apps.TrelloClone.Web.Live.Todo.Components.List do
   @impl true
   def render(assigns) do
     ~L"""
-    <div id="<%= @id %>" class="bg-white text-sm min-w-48 border rounded-lg p-4"
+    <div id="<%= @id %>" class="bg-white text-sm min-w-48 border rounded-lg p-4 list"
          phx-hook="Draggable" draggable="true"
          phx-value-draggable_id="<%= @list.id %>"
          phx-value-draggable_type="list"
